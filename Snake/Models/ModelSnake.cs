@@ -30,7 +30,13 @@ namespace Snake.Models
                 graphics.PreferredBackBufferWidth * 0.5f,
                 graphics.PreferredBackBufferHeight * 0.5f);
 
+            Collided = false;
+
         }
+
+        public bool Collided { get; private set; }
+
+        public Rectangle RectBiscuit { private get; set; }
 
         public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
@@ -69,6 +75,11 @@ namespace Snake.Models
                      _position.Y += Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
                      break;
              }
+
+            Rectangle myRect = new Rectangle((int) _position.X, (int) _position.Y, _snakeTextures[0].Width, _snakeTextures[0].Height);
+
+            if (myRect.Intersects(RectBiscuit)) Collided = true;
+            else Collided = false;
 
         }
 

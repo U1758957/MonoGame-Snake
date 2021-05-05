@@ -30,6 +30,9 @@ namespace Snake
             _controllerSnake = new ControllerSnake(Content, _graphics);
             _controllerBiscuit = new ControllerBiscuit(Content, _graphics);
 
+            _controllerSnake.setControllerBiscuit(ref _controllerBiscuit);
+            _controllerBiscuit.setControllerSnake(ref _controllerSnake);
+
             base.Initialize();
         }
 

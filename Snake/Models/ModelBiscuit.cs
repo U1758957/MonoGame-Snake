@@ -22,11 +22,25 @@ namespace Snake.Models
                 graphics.PreferredBackBufferWidth * 0.25f,
                 graphics.PreferredBackBufferHeight * 0.25f);
 
+            RectBiscuit = new Rectangle((int) _position.X, (int) _position.Y, _biscuitTexture.Width, _biscuitTexture.Height);
+
         }
+
+        public Rectangle RectBiscuit { get; private set; }
+
+        public bool Collided { private get; set; }
 
         public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
+            if (Collided)
+            {
+                Random rnd = new Random();
 
+                _position.X = rnd.Next(0, graphics.PreferredBackBufferWidth);
+                _position.Y = rnd.Next(0, graphics.PreferredBackBufferHeight);
+
+                RectBiscuit = new Rectangle((int) _position.X, (int) _position.Y, _biscuitTexture.Width, _biscuitTexture.Height);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
