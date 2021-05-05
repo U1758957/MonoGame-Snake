@@ -14,11 +14,9 @@ namespace Snake.Models
         private readonly Texture2D[] _snakeTextures = new Texture2D[2];
         private Vector2 _position;
 
-        private const float Speed = 1024.0f;
+        private const float Speed = 128.0f;
 
         private int _direction; // 0, 1, 2, 3 = Left, Right, Up, Down
-        private bool _staggering;
-        private double _currentSecond;
 
         public ModelSnake(ContentManager content, GraphicsDeviceManager graphics)
         {
@@ -27,8 +25,6 @@ namespace Snake.Models
             _snakeTextures[1] = content.Load<Texture2D>("snake_body");
 
             _direction = 0;
-            _staggering = false;
-            _currentSecond = 0;
 
             _position = new Vector2(
                 graphics.PreferredBackBufferWidth * 0.5f,
@@ -58,34 +54,21 @@ namespace Snake.Models
                 _direction = 3;
             }
 
-            if (!_staggering)
+            switch (_direction)
             {
-                switch (_direction)
-                {
-                    case 0:
-                        _position.X -= Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-                        break;
-                    case 1:
-                        _position.X += Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-                        break;
-                    case 2:
-                        _position.Y -= Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-                        break;
-                    case 3:
-                        _position.Y += Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-                        break;
-                }
-
-                _staggering = true;
-                _currentSecond = gameTime.TotalGameTime.TotalSeconds;
-            } 
-            else
-            {
-                if (gameTime.TotalGameTime.TotalSeconds >= _currentSecond + 0.5d)
-                {
-                    _staggering = false;
-                }
-            }
+                case 0:
+                    _position.X -= Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                    break;
+                case 1:
+                     _position.X += Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                     break;
+                case 2:
+                     _position.Y -= Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                     break;
+                case 3:
+                     _position.Y += Speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                     break;
+             }
 
         }
 
