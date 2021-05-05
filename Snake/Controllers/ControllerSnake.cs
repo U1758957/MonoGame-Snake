@@ -20,7 +20,7 @@ namespace Snake.Controllers
 
         public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
-
+            _snake.Update(gameTime, graphics);
         }
 
         public void Draw(SpriteBatch spriteBatch)
