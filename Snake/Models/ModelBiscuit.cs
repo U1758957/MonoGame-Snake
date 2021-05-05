@@ -18,13 +18,20 @@ namespace Snake.Models
 
             _biscuitTexture = content.Load<Texture2D>("biscuit");
 
-            var random = new Random();
+            _position = new Vector2(
+                graphics.PreferredBackBufferWidth * 0.25f,
+                graphics.PreferredBackBufferHeight * 0.25f);
 
-            float x = ((float) Math.Round(graphics.PreferredBackBufferWidth * 0.1f) * 0.1f);
-            float y = ((float) Math.Round(graphics.PreferredBackBufferHeight * 0.1f) * 0.1f);
+        }
 
-            _position = new Vector2(x, y);
+        public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
+        {
 
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_biscuitTexture, _position, Color.White);
         }
 
     }

@@ -25,5 +25,15 @@ namespace Snake.Models
 
         }
 
+        public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
+        {
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_snakeTextures[0], _position, Color.White);
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Snake.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,16 @@ namespace Snake.Controllers
         public ControllerSnake(ContentManager content, GraphicsDeviceManager graphics)
         {
             _snake = new ModelSnake(content, graphics);
+        }
+
+        public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
+        {
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            _snake.Draw(spriteBatch);
         }
 
     }
