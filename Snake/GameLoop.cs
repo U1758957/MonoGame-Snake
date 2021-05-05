@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Snake.Controllers;
 
 namespace Snake
 {
@@ -8,6 +9,9 @@ namespace Snake
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private ControllerSnake _controllerSnake;
+        private ControllerBiscuit _controllerBiscuit;
 
         public GameLoop()
         {
@@ -18,7 +22,9 @@ namespace Snake
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
+            _controllerSnake = new ControllerSnake(Content, _graphics);
+            _controllerBiscuit = new ControllerBiscuit(Content, _graphics);
 
             base.Initialize();
         }
