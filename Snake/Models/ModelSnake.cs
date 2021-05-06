@@ -98,7 +98,8 @@ namespace Snake.Models
 
                 if (_snakeBody[0].Intersects(RectBiscuit))
                 {
-                    _snakeBody[_snakeBodyIndex] = new Rectangle(_snakeBody[_snakeBodyIndex - 1].X, _snakeBody[_snakeBodyIndex - 1].Y, _snakeTextures[1].Width, _snakeTextures[1].Height);
+                    //_snakeBody[_snakeBodyIndex] = new Rectangle(_snakeBody[_snakeBodyIndex - 1].X, _snakeBody[_snakeBodyIndex - 1].Y, _snakeTextures[1].Width, _snakeTextures[1].Height);
+                    _snakeBody[_snakeBodyIndex] = new Rectangle(0, 0, _snakeTextures[1].Width, _snakeTextures[1].Height);
                     _snakeBodyIndex++;
 
                     Collided = true;
