@@ -30,11 +30,15 @@ namespace Snake.Models
 
             RectBiscuit = new Rectangle((int) _position.X, (int) _position.Y, _biscuitTexture.Width, _biscuitTexture.Height);
 
+            Score = 0;
+
         }
 
         public Rectangle RectBiscuit { get; private set; }
 
         public bool Collided { private get; set; }
+
+        public int Score { get; private set; }
 
         public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
@@ -52,6 +56,8 @@ namespace Snake.Models
                 _position.Y = (int) roundY;
 
                 RectBiscuit = new Rectangle((int) _position.X, (int) _position.Y, _biscuitTexture.Width, _biscuitTexture.Height);
+
+                Score += 10;
 
             }
         }

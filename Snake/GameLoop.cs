@@ -16,11 +16,13 @@ namespace Snake
         private SpriteFont _font;
 
         private double _timeCounter = 0.0d;
-        private bool _showFPS = false;
+        private bool _showFPS = true;
         private double _frameRate;
         private double _avgFrameRate;
         private readonly double[] _frameRates = new double[32];
         private int _frameRatesIndex;
+
+        private int _score;
 
         public GameLoop()
         {
@@ -71,6 +73,8 @@ namespace Snake
             _controllerSnake.Update(gameTime, _graphics);
             _controllerBiscuit.Update(gameTime, _graphics);
 
+            _score = _controllerBiscuit.Score;
+
             base.Update(gameTime);
         }
 
@@ -109,9 +113,11 @@ namespace Snake
                 }
 
                 _spriteBatch.DrawString(_font, $"FPS: {_frameRate}", new Vector2(0, 0), Color.White);
-                _spriteBatch.DrawString(_font, $"Avg FPS: {_avgFrameRate}", new Vector2(0, _font.LineSpacing),Color.White);
+                _spriteBatch.DrawString(_font, $"Avg FPS: {_avgFrameRate}", new Vector2(0, _font.LineSpacing), Color.White);
 
             }
+
+            _spriteBatch.DrawString(_font, $"Score: {_score}", new Vector2(0, _graphics.PreferredBackBufferWidth - _font.LineSpacing), Color.White);
 
             _spriteBatch.End();
 

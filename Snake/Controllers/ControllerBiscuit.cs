@@ -25,11 +25,14 @@ namespace Snake.Controllers
         }
         public Rectangle RectBiscuit { get; private set; }
 
+        public int Score { get; private set; }
+
         public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
             _modelBiscuit.Collided = _controllerSnake.Collided;
             _modelBiscuit.Update(gameTime, graphics);
             RectBiscuit = _modelBiscuit.RectBiscuit;
+            Score = _modelBiscuit.Score;
         }
 
         public void Draw(SpriteBatch spriteBatch)
