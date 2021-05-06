@@ -66,7 +66,6 @@ namespace Snake.Models
                 if (_currentMouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed)
                 {
                     Clicked = true;
-                    Console.WriteLine("OOGA");
                 }
             }
 
