@@ -45,6 +45,7 @@ namespace Snake.Models
             _snakeBodyIndex = 1;
 
             Collided = false;
+            Dead = false;
 
             _staggerTimer = new Timer();
             _staggerTimer.Elapsed += new ElapsedEventHandler(OnStagger);
@@ -57,6 +58,8 @@ namespace Snake.Models
         public bool Collided { get; private set; }
 
         public Rectangle RectBiscuit { private get; set; }
+
+        public bool Dead { get; private set; }
 
         private void OnStagger(object source, ElapsedEventArgs e)
         {
@@ -118,10 +121,7 @@ namespace Snake.Models
 
                 for (int i = 1; i < _snakeBodyIndex; i++)
                 {
-                    if (_snakeBody[0].Intersects(_snakeBody[i]))
-                    {
-                        Console.WriteLine("FAIL!!!!!!");
-                    }
+                    if (_snakeBody[0].Intersects(_snakeBody[i])) Dead = true;
                 }
 
                 _stagger ^= true;

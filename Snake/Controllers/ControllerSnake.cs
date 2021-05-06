@@ -26,11 +26,14 @@ namespace Snake.Controllers
 
         public bool Collided { get; private set; }
 
+        public bool Dead { get; private set; }
+
         public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
             _snake.RectBiscuit = _controllerBiscuit.RectBiscuit;
             _snake.Update(gameTime, graphics);
             Collided = _snake.Collided;
+            Dead = _snake.Dead;
         }
 
         public void Draw(SpriteBatch spriteBatch)

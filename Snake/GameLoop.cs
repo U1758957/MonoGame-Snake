@@ -14,6 +14,10 @@ namespace Snake
         private ControllerBiscuit _controllerBiscuit;
 
         private SpriteFont _font;
+        private SpriteFont _fontDead;
+        private const string _DeadText = "Dead :(";
+        private int _deadTextWidth;
+        private int _deadTextHeight;
 
         private double _timeCounter = 0.0d;
         private bool _showFPS = true;
@@ -23,6 +27,7 @@ namespace Snake
         private int _frameRatesIndex;
 
         private int _score;
+        private bool _dead = false;
 
         public GameLoop()
         {
@@ -53,8 +58,15 @@ namespace Snake
 
         protected override void LoadContent()
         {
+
             _font = Content.Load<SpriteFont>("Font");
+            _fontDead = Content.Load<SpriteFont>("Font_Death");
+
+            _deadTextWidth = (int)_fontDead.MeasureString(_DeadText).X / 2;
+            _deadTextHeight = (int)_fontDead.MeasureString(_DeadText).Y / 2;
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -70,10 +82,16 @@ namespace Snake
                 _showFPS ^= true;
             }
 
-            _controllerSnake.Update(gameTime, _graphics);
-            _controllerBiscuit.Update(gameTime, _graphics);
+            if (!_dead)
+            {
 
-            _score = _controllerBiscuit.Score;
+                _controllerSnake.Update(gameTime, _graphics);
+                _controllerBiscuit.Update(gameTime, _graphics);
+
+                _score = _controllerBiscuit.Score;
+                _dead = _controllerSnake.Dead;
+
+            }
 
             base.Update(gameTime);
         }
@@ -83,9 +101,6 @@ namespace Snake
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-
-            _controllerSnake.Draw(_spriteBatch);
-            _controllerBiscuit.Draw(_spriteBatch);
 
             if (_showFPS)
             {
@@ -117,7 +132,16 @@ namespace Snake
 
             }
 
-            _spriteBatch.DrawString(_font, $"Score: {_score}", new Vector2(0, _graphics.PreferredBackBufferWidth - _font.LineSpacing), Color.White);
+            _spriteBatch.DrawString(!_dead ? _font : _fontDead, $"Score: {_score}", new Vector2(0, _graphics.PreferredBackBufferWidth - (!_dead ? _font.LineSpacing : _fontDead.LineSpacing)), Color.Gold);
+
+            if (!_dead)
+            {
+                _controllerSnake.Draw(_spriteBatch);
+                _controllerBiscuit.Draw(_spriteBatch);
+            } else
+            {
+                _spriteBatch.DrawString(_fontDead, _DeadText, new Vector2((_graphics.PreferredBackBufferWidth / 2) - _deadTextWidth, (_graphics.PreferredBackBufferHeight / 2) - _deadTextHeight), Color.Red);
+            }
 
             _spriteBatch.End();
 
