@@ -86,22 +86,23 @@ namespace Snake.Models
                 {
 
                     case 0:
-                        _snakeBody[0].Offset(-Speed + -_snakeBody[0].Width * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
+                        _snakeBody[0].Offset(-Speed + -_snakeBody[0].Width * (float) gameTime.ElapsedGameTime.TotalSeconds, 0);
                         break;
                     case 1:
-                        _snakeBody[0].Offset(Speed + _snakeBody[0].Width * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
+                        _snakeBody[0].Offset(Speed + _snakeBody[0].Width * (float) gameTime.ElapsedGameTime.TotalSeconds, 0);
                         break;
                     case 2:
-                        _snakeBody[0].Offset(0, -Speed + -_snakeBody[0].Height * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                        _snakeBody[0].Offset(0, -Speed + -_snakeBody[0].Height * (float) gameTime.ElapsedGameTime.TotalSeconds);
                         break;
                     case 3:
-                        _snakeBody[0].Offset(0, Speed + _snakeBody[0].Height * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                        _snakeBody[0].Offset(0, Speed + _snakeBody[0].Height * (float) gameTime.ElapsedGameTime.TotalSeconds);
                         break;
                 }
 
+                if (_snakeBody[0].X <= -_snakeTextures[0].Width || _snakeBody[0].X >= graphics.PreferredBackBufferWidth || _snakeBody[0].Y <= -_snakeTextures[0].Height || _snakeBody[0].Y >= graphics.PreferredBackBufferHeight) Dead = true;
+
                 if (_snakeBody[0].Intersects(RectBiscuit))
                 {
-                    //_snakeBody[_snakeBodyIndex] = new Rectangle(_snakeBody[_snakeBodyIndex - 1].X, _snakeBody[_snakeBodyIndex - 1].Y, _snakeTextures[1].Width, _snakeTextures[1].Height);
                     _snakeBody[_snakeBodyIndex] = new Rectangle(0, 0, _snakeTextures[1].Width, _snakeTextures[1].Height);
                     _snakeBodyIndex++;
 
