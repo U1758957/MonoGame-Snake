@@ -14,9 +14,9 @@ namespace Snake.Controllers
         private readonly ModelSnake _snake;
         private static ControllerBiscuit _controllerBiscuit;
 
-        public ControllerSnake(ContentManager content, GraphicsDeviceManager graphics)
+        public ControllerSnake(ContentManager content, GraphicsDeviceManager graphics, ref int difficulty)
         {
-            _snake = new ModelSnake(content, graphics);
+            _snake = new ModelSnake(content, graphics, ref difficulty);
         }
 
         public void setControllerBiscuit(ref ControllerBiscuit controllerBiscuit)

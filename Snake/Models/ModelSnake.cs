@@ -25,7 +25,7 @@ namespace Snake.Models
         private Timer _staggerTimer;
         private bool _stagger;
 
-        public ModelSnake(ContentManager content, GraphicsDeviceManager graphics)
+        public ModelSnake(ContentManager content, GraphicsDeviceManager graphics, ref int difficulty)
         {
 
             _snakeTextures[0] = content.Load<Texture2D>("snake_head");
@@ -49,7 +49,20 @@ namespace Snake.Models
 
             _staggerTimer = new Timer();
             _staggerTimer.Elapsed += new ElapsedEventHandler(OnStagger);
-            _staggerTimer.Interval = 100;
+            
+            switch (difficulty)
+            {
+                case 0:
+                    _staggerTimer.Interval = 50;
+                    break;
+                case 1:
+                    _staggerTimer.Interval = 100;
+                    break;
+                case 2:
+                    _staggerTimer.Interval = 150;
+                    break;
+            }
+
             _stagger = false;
             _staggerTimer.Enabled = true;
 
