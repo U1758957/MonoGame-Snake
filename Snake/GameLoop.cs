@@ -13,11 +13,24 @@ namespace Snake
         private ControllerSnake _controllerSnake;
         private ControllerBiscuit _controllerBiscuit;
 
+        private SpriteFont _font;
+
+        private double _timeCounter = 0.0d;
+        private bool _showFPS = false;
+        private double _frameRate;
+        private double _avgFrameRate;
+        private readonly double[] _frameRates = new double[32];
+        private int _frameRatesIndex;
+
         public GameLoop()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _graphics.SynchronizeWithVerticalRetrace = false;
+            IsFixedTimeStep = false;
+
         }
 
         protected override void Initialize()
@@ -38,6 +51,7 @@ namespace Snake
 
         protected override void LoadContent()
         {
+            _font = Content.Load<SpriteFont>("Font");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -48,6 +62,10 @@ namespace Snake
                 Content.Unload();
                 Content.Dispose();
                 Exit();
+            } 
+            else if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                _showFPS ^= true;
             }
 
             _controllerSnake.Update(gameTime, _graphics);
@@ -64,6 +82,36 @@ namespace Snake
 
             _controllerSnake.Draw(_spriteBatch);
             _controllerBiscuit.Draw(_spriteBatch);
+
+            if (_showFPS)
+            {
+
+                _timeCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (_timeCounter >= 100)
+
+                {
+                    _frameRate = 1 / (float) gameTime.ElapsedGameTime.TotalSeconds;
+                    _frameRates[_frameRatesIndex++] = _frameRate;
+
+                    if (_frameRatesIndex == _frameRates.Length)
+                    {
+                        _frameRatesIndex = 0;
+
+                        double frameRateSum = 0.0d;
+
+                        foreach (double frameRate in _frameRates) frameRateSum += frameRate;
+
+                        _avgFrameRate = frameRateSum / _frameRates.Length;
+                    }
+
+                    _timeCounter = 0.0d;
+                }
+
+                _spriteBatch.DrawString(_font, $"FPS: {_frameRate}", new Vector2(0, 0), Color.White);
+                _spriteBatch.DrawString(_font, $"Avg FPS: {_avgFrameRate}", new Vector2(0, _font.LineSpacing),Color.White);
+
+            }
 
             _spriteBatch.End();
 
